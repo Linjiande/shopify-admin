@@ -23,6 +23,7 @@ import CreateForm from './components/CreateForm';
 import StandardTable from './components/StandardTable';
 import UpdateForm from './components/UpdateForm';
 import styles from './style.less';
+import { black } from 'color-name';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -46,14 +47,14 @@ class TableList extends Component {
     selectedRows: [],
     formValues: {},
     stepFormValues: {},
-    // currentPage:1
+    currentPage:1,
+    params:{limit:10}
   };
 
   columns = [
     {
       title: 'Order',
       dataIndex: 'order_number',
-      // sorter:(a,b) => a.order_number-b.order_number,
       render: (val) => `#${val}`
     },
     {
@@ -80,7 +81,6 @@ class TableList extends Component {
     {
       title:'Total',
       dataIndex:'total_price',
-      sorter: (a,b) => a.total_price-b.total_price,
       render: (val, record) => currencyFormatter.format(val, {code: record.currency}),
     },
   ];
@@ -88,23 +88,23 @@ class TableList extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'orders/getCount',
-    });
-    dispatch({
       type: 'orders/getOrders',
+      payload:{
+        limit:10
+      }
     });
   }
 
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
-    const { dispatch } = this.props;
-    const { formValues } = this.state;
+    const { dispatch, orders: { header }  } = this.props;
+    const { formValues,currentPage } = this.state;
     const filters = Object.keys(filtersArg).reduce((obj, key) => {
       const newObj = { ...obj };
       newObj[key] = getValue(filtersArg[key]);
       return newObj;
     }, {});
     const params = {
-      pageSize: pagination.pageSize,
+      limit: pagination.pageSize,
       ...formValues,
       ...filters,
     };
@@ -118,10 +118,31 @@ class TableList extends Component {
       }
       params.order = `${sorter.field} ${sort}`;
     }
-    dispatch({
+    this.setState({
+      currentPage:pagination.current,
+      params
+    })
+    if(pagination.current!==1) {
+      const regexp = /<(.+)>[;]\srel="([a-z]+)"/
+      header.forEach(element => {
+        // exec是正则的方法、match是字符串的方法
+        const urlrel = regexp.exec(element);
+        const url =  urlrel[1].replace(/.+2019-10/,"");
+        const rel =  urlrel[2];
+        params.url = url;
+        if((currentPage<pagination.current&&rel==="next")||
+            (currentPage>pagination.current&&rel==="previous")) {
+          dispatch({
+            type:"orders/getRel",
+            payload:params
+          })
+        }
+      })
+    }else{
+      dispatch({
       type: 'orders/getOrders',
       payload: params,
-    });
+    });}
   };
 
   handleFormReset = () => {
@@ -150,7 +171,7 @@ class TableList extends Component {
     switch (e.key) {
       case 'remove':
         dispatch({
-          type: 'orders/remove',
+          type: 'orders/removeOrder',
           payload: selectedRows.map(row => row.id),
           callback: () => {
             this.setState({
@@ -174,19 +195,20 @@ class TableList extends Component {
   handleSearch = e => {
     e.preventDefault();
     const { dispatch, form } = this.props;
+    const { params,currentPage   } = this.state
     form.validateFields((err, fieldsValue) => {
       if (err) return;
       const values = {
+        ...params,
         ...fieldsValue,
         updatedAt: fieldsValue.updatedAt && fieldsValue.updatedAt.valueOf(),
       };
       this.setState({
+        currentPage: 1,
         formValues: values,
       });
-      console.log("formValues",values)
-      
       dispatch({
-        type: 'orders/getOrders',
+        type: 'orders/filtration',
         payload: values,
       });
     });
@@ -429,15 +451,15 @@ class TableList extends Component {
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm();
   }
 
-
   
   render() {
     const {
-      orders: { data },
+      orders: { list,count },
       loading,
     } = this.props;
-
-    const { selectedRows, modalVisible, updateModalVisible, stepFormValues } = this.state;
+    // console.log("orders",this.props.orders)
+    // console.log("loading",loading)
+    const { selectedRows, modalVisible, updateModalVisible, stepFormValues, currentPage } = this.state;
     const menu = (
       <Menu onClick={this.handleMenuClick} selectedKeys={[]}>
         <Menu.Item key="remove">删除</Menu.Item>
@@ -475,11 +497,11 @@ class TableList extends Component {
             <StandardTable
               selectedRows={selectedRows}
               loading={loading}
-              data={data}
+              data={{list}}
               columns={this.columns}
               onSelectRow={this.handleSelectRows}
               onChange={this.handleStandardTableChange}
-              pagination={{simple:true,}}
+              pagination={{simple: true, total: count,current: currentPage}}
             />
           </div>
         </Card>

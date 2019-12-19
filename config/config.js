@@ -407,7 +407,7 @@ export default {
   history: 'hash',
   publicPath: '/shopify-admin/',
   proxy: {
-    '/admin/api/2019-10/orders.json': {
+    '/admin/api/2019-10/': {
       target: 'https://linjd.myshopify.com/',
       changeOrigin: true,
     }
