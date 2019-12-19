@@ -115,27 +115,36 @@ export default {
           authority: ['admin', 'user'],
           routes: [
             {
-              path: '/order',
+              path: '/',
               icon: 'table',
-              name: '订单',
+              name: 'Orders',
               routes: [
                 {
-                  name: '所有订单',
+                  name: 'All Orders',
                   icon: 'smile',
-                  path: '/order/table-list',
-                  component: './order/table-list',
+                  path: '/orders',
+                  component: './order/all-list',
                 },
                 {
-                  name: '弃单',
+                  name: 'Drafts',
                   icon: 'smile',
-                  path: '/order/basic-list',
+                  path: '/drafts_orders',
+                  routes:[
+                    {
+                      path: '/drafts_orders',
+                      component:'./order/drafts'
+                    },
+                    {
+                      path: '/drafts_orders/new',
+                      component:'./order/drafts/new'
+                    },
+                  ]
+                },
+                {
+                  name: 'Abandoned checkouts',
+                  icon: 'smile',
+                  path: '/basic-list',
                   component: './order/basic-list'
-                },
-                {
-                  name: 'all',
-                  icon: 'smile',
-                  path: '/order/all',
-                  component: './order/all',
                 },
               ],
             },
