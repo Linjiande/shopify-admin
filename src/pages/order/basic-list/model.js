@@ -10,10 +10,9 @@ const Model = {
     *getCheckouts({ payload }, { call, put }) {
       const response = yield call(getCheckouts, payload);
       yield put({
-        type: 'save',
+        type: 'list',
         payload: {
           list: response.checkouts,
-          pagination: {}
         },
       });
     },
@@ -56,8 +55,8 @@ const Model = {
   //   },
   },
   reducers: {
-    save(state, action) {
-      return { ...state, data: action.payload };
+    list(state, action) {
+      return { ...state, list: action.payload };
     },
   },
 };

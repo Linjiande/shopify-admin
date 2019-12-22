@@ -13,7 +13,7 @@ class index extends Component {
             <PageHeaderWrapper>
                 <Card>
                     <div>drafts</div>
-                    <Button type="primary"><NavLink to="/drafts_orders/new">新建订单</NavLink></Button>
+                    <Button type="primary"><NavLink to="/orders/drafts_orders/new">新建订单</NavLink></Button>
                 </Card>
             </PageHeaderWrapper>
         );

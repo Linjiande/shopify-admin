@@ -8,7 +8,7 @@ import {
   Form,
   Icon,
   Input,
-  InputNumber,
+  // InputNumber,
   Menu,
   Row,
   Select,
@@ -23,7 +23,7 @@ import CreateForm from './components/CreateForm';
 import StandardTable from './components/StandardTable';
 import UpdateForm from './components/UpdateForm';
 import styles from './style.less';
-import { black } from 'color-name';
+// import { black } from 'color-name';
 import NavLink from 'umi/navlink';
 
 const FormItem = Form.Item;
@@ -196,14 +196,37 @@ class TableList extends Component {
   handleSearch = e => {
     e.preventDefault();
     const { dispatch, form } = this.props;
-    const { params,currentPage   } = this.state
+    const { params  } = this.state
     form.validateFields((err, fieldsValue) => {
       if (err) return;
       const values = {
         ...params,
         ...fieldsValue,
-        updatedAt: fieldsValue.updatedAt && fieldsValue.updatedAt.valueOf(),
+        // updatedAt: fieldsValue.updatedAt && fieldsValue.updatedAt.valueOf(),
       };
+      //添加financial_status数组，并转为字符串
+      if(fieldsValue.financial_status!==undefined){
+        values.financial_status = fieldsValue.financial_status+""
+        if(fieldsValue.financial_status.length===0){
+          values.financial_status = undefined
+        }
+      }
+      //添加financial_status数组，并转为字符串
+      if(fieldsValue.fulfillment_status!==undefined){
+        values.fulfillment_status = fieldsValue.fulfillment_status+""
+        if(fieldsValue.fulfillment_status.length===0){
+          values.fulfillment_status = undefined
+        }
+      }
+      // console.log(fieldsValue.created_at_min.format("YYYY-MM-DDThh:mm:ss+8:00"))
+      // 添加created_at_min数组，并转为字符串
+      if(fieldsValue.created_at_min!==undefined){
+        values.created_at_min = fieldsValue.created_at_min.format("YYYY-MM-DD")
+        if(fieldsValue.created_at_min.length===0){
+          values.created_at_min = undefined
+        }
+      }
+      // console.log(values)
       this.setState({
         currentPage: 1,
         formValues: values,
@@ -215,11 +238,11 @@ class TableList extends Component {
     });
   };
 
-  // handleModalVisible = flag => {
-  //   this.setState({
-  //     modalVisible: !!flag,
-  //   });
-  // };
+  handleModalVisible = flag => {
+    this.setState({
+      modalVisible: !!flag,
+    });
+  };
 
   handleUpdateModalVisible = (flag, record) => {
     this.setState({
@@ -258,7 +281,7 @@ class TableList extends Component {
     const { form } = this.props;
     const { getFieldDecorator } = form;
     return (
-      <Form onSubmit={this.handleSearch} layout="inline">
+      <Form onSubmit={this.handleSearch} layout="vertical">
         <Row
           gutter={{
             md: 8,
@@ -267,49 +290,88 @@ class TableList extends Component {
           }}
         >
           <Col md={8} sm={24}>
-            <FormItem label="订单号">
-              {getFieldDecorator('name')(<Input placeholder="请输入" />)}
+            <FormItem label="order">
+              {getFieldDecorator('name')(<Input placeholder="请输入order" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="订单进度">
-              {getFieldDecorator('financial_status')(
+            <FormItem label="status">
+              {getFieldDecorator('status')(
                 <Select
-                  placeholder="请选择"
+                  placeholder="请选择(单选)"
                   style={{
                     width: '100%',
                   }}
                 >
-                  <Option value="pending">未完成订单-pending</Option>
-                  <Option value="paid">已付款订单-paid</Option>
-                  <Option value="refunded">退款订单-refunded</Option>
-                  <Option value="voided">无效订单-voided</Option>
+                  <Option value="closed">closed</Option>
+                  <Option value="cancelled">cancelled</Option>
+                  <Option value="any">any</Option>
                 </Select>,
               )}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <span className={styles.submitButtons}>
-              <Button type="primary" htmlType="submit">
+            <FormItem label="financial_status">
+              {getFieldDecorator('financial_status')(
+                <Select
+                  mode="tags"
+                  placeholder="请选择(可多选)"
+                  style={{
+                    width: '100%',
+                  }}
+                >
+                  <Option value="pending">pending</Option>
+                  <Option value="paid">paid</Option>
+                  <Option value="refunded">refunded</Option>
+                  <Option value="voided">voided</Option>
+                </Select>,
+              )}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="fulfillment_status">
+              {getFieldDecorator('fulfillment_status')(
+                <Select
+                  mode="tags"
+                  placeholder="请选择(可多选)"
+                  style={{
+                    width: '100%',
+                  }}
+                >
+                  <Option value="shipped">shipped</Option>
+                  <Option value="partial">partial</Option>
+                  <Option value="unshipped">unshipped</Option>
+                  <Option value="unfulfilled">unfulfilled</Option>
+                </Select>,
+              )}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+             <FormItem label="created_at">
+               {getFieldDecorator('created_at_min')(
+                 <DatePicker
+                    style={{
+                      width: '100%',
+                    }}
+                placeholder="请输入创建日期"
+              />,
+              )}
+             </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <div style={{textAlign: "center",}}>
+              <Button type="primary" icon="search" htmlType="submit">
                 查询
               </Button>
-              <Button
-                style={{
-                  marginLeft: 8,
-                }}
-                onClick={this.handleFormReset}
-              >
+              <Button style={{marginLeft: 16,}} onClick={this.handleFormReset}>
                 重置
               </Button>
-              {/* <a
-                style={{
-                  marginLeft: 8,
-                }}
-                onClick={this.toggleForm}
-              >
-                展开 <Icon type="down" />
-              </a> */}
-            </span>
+              <Button type="primary" style={{marginLeft: 32,}}>
+                <NavLink to="/orders/drafts_orders/new">
+                  新建订单
+                </NavLink>
+              </Button>
+            </div>
           </Col>
         </Row>
       </Form>
@@ -482,8 +544,8 @@ class TableList extends Component {
             <div className={styles.tableListForm}>{this.renderSimpleForm()}</div>
             <div className={styles.tableListOperator}>
               {/* <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
-              </Button> */}
-              <Button type="primary"><NavLink to="/drafts_orders/new">新建订单</NavLink></Button>
+              </Button> 
+              <Button type="primary"><NavLink to="/orders/drafts_orders/new">新建订单</NavLink></Button> */}
               {selectedRows.length > 0 && (
                 <span>
                   <Button>批量操作</Button>

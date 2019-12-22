@@ -5,7 +5,7 @@ const account = {'X-Shopify-Access-Token':'f0685932b93ca0d6882374f86968a334'}
 export async function getOrders(params) {
   let res;
   try {
-    res = await axios.get(`${apiBase}/orders.json?status=any`,{
+    res = await axios.get(`${apiBase}/orders.json?`,{
       headers: account,
       params,
     });

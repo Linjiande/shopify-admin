@@ -115,27 +115,27 @@ export default {
           authority: ['admin', 'user'],
           routes: [
             {
-              path: '/',
+              path: '/orders',
               icon: 'table',
               name: 'Orders',
               routes: [
                 {
                   name: 'All Orders',
                   icon: 'smile',
-                  path: '/orders',
+                  path: '/orders/all_list',
                   component: './order/all-list',
                 },
                 {
                   name: 'Drafts',
                   icon: 'smile',
-                  path: '/drafts_orders',
+                  path: '/orders/drafts_orders',
                   routes:[
                     {
-                      path: '/drafts_orders',
+                      path: '/orders/drafts_orders',
                       component:'./order/drafts'
                     },
                     {
-                      path: '/drafts_orders/new',
+                      path: '/orders/drafts_orders/new',
                       component:'./order/drafts/new'
                     },
                   ]
@@ -143,10 +143,20 @@ export default {
                 {
                   name: 'Abandoned checkouts',
                   icon: 'smile',
-                  path: '/basic-list',
+                  path: '/orders/basic-list',
                   component: './order/basic-list'
                 },
               ],
+            },
+            {
+              path: '/products',
+              name: 'Products',
+              icon: 'dashboard',
+            },
+            {
+              path: '/customers',
+              name: 'Customers',
+              icon: 'dashboard',
             },
             {
               path: '/dashboard',
