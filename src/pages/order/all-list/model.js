@@ -21,15 +21,6 @@ const Model = {
       yield put({type: 'count', payload: resCount.data.count});
       resOrders.headers.link?yield put({type: 'header', payload: resOrders.headers.link.split(",")}):{};
     },
-    
-    *filtration({ payload }, { call, put }) {
-      const resOrders = yield call(getOrders, payload);
-      const resCount = yield call(getCount, payload);
-      yield put({type: 'list', payload: resOrders.data.orders});
-      yield put({type: 'count', payload: resCount.data.count});
-      resOrders.headers.link?yield put({type: 'header', payload: resOrders.headers.link.split(",")}):{};
-
-    },
 
     *getRel({ payload }, { call, put }) {
       const resOrders = yield call(getRel, payload);
@@ -39,43 +30,9 @@ const Model = {
 
     *removeOrder({ payload, callback }, { call, put }) {
       yield call(removeOrder, payload);
-      const resOrders = yield call(getOrders, payload);
-      const resCount = yield call(getCount, payload);
-      yield put({type: 'list', payload: resOrders.data.orders});
-      yield put({type: 'count', payload: resCount.data.count});
-      resOrders.headers.link?yield put({type: 'header', payload: resOrders.headers.link.split(",")}):{};
+      yield put({type:'getOrders',payload});
       if (callback) callback();
     },
-
-  //   *fetch({ payload }, { call, put }) {
-  //     const response = yield call(queryOrders, payload);
-  //     yield put({
-  //       type: 'save',
-  //       payload: {
-  //         list: response.orders,
-  //         pagination: {}
-  //       },
-  //     });
-  //   },
-
-  //   *add({ payload, callback }, { call, put }) {
-  //     const response = yield call(addOrder, payload);
-  //     yield put({
-  //       type: 'save',
-  //       payload: response,
-  //     });
-  //     if (callback) callback();
-  //   },
-
-
-  //   *update({ payload, callback }, { call, put }) {
-  //     const response = yield call(updateOrder, payload);
-  //     yield put({
-  //       type: 'save',
-  //       payload: response,
-  //     });
-  //     if (callback) callback();
-  //   },
   },
   reducers: {
     list(state, action) {

@@ -1,8 +1,12 @@
 # Shopify-admin
 
-## 示例
+## 原型、示例
 
+### 原型
 [Shopify-admin](https://linjiande.github.io/shopify-admin/)
+### 示例
+[Shopify-admin](https://7o0dfh.axshare.com)
+密码：abc123456
 
 ## 关于
 
@@ -33,7 +37,7 @@
 
 ### 完成总览
 
- - [ ] orders
+ - [ ] Orders
     - [x] All orders
     - [ ] Order details
     - [ ] Drafts

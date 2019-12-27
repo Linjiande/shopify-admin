@@ -3,9 +3,13 @@ import {
     Button
 } from 'antd'
 import React, { Component } from 'react';
+import { connect } from 'dva';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import NavLink from 'umi/navlink';
 
+@connect(({ drafts }) => ({
+    drafts
+  }))
 class index extends Component {
     
     render() {
