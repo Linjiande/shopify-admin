@@ -216,7 +216,8 @@ class index extends Component {
         });
         const regexp = /<(.+)>[;]\srel="([a-z]+)"/
         header.forEach(element => {
-            // exec是正则的方法、match是字符串的方法
+            // exec是正则的方法、match是字符串的方法,
+            // 各自优点：exec信息详细，match方便
             const urlrel = regexp.exec(element);
             url = urlrel[1].replace(/.+2019-10/, "");
             const rel = urlrel[2];
@@ -284,7 +285,6 @@ class index extends Component {
             checkedbox,
             line_items
         })
-        // console.log(index, e)
     }
 
 
@@ -506,7 +506,7 @@ class index extends Component {
                                 >
                                     {searchCustomer.length === 0 || value.searchCustomer === "" ?
                                         customers.map((item, index) => (
-                                            <Option value={item.id}>
+                                            <Option key={index} value={item.id}>
                                                 <List.Item.Meta
                                                     key={index}
                                                     avatar={
