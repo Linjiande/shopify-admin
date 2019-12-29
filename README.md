@@ -106,7 +106,7 @@
 
 > 林建德:
 >
-> > 基本完成了[Create Drafts_orders](https://linjiande.github.io/shopify-admin/#/orders/drafts_orders/new) 页面,产品列表展示、无限下拉，客户列表展示，创建订单，保存草稿。完成了[Drafts](https://linjiande.github.io/shopify-admin/#/orders/drafts_orders) 页面展示、过滤。完成了[Abandoned checkouts](https://linjiande.github.io/shopify-admin/#/orders/checkouts) 页面展示。
+> > 基本完成了[Create Drafts_orders](https://linjiande.github.io/shopify-admin/#/orders/drafts_orders/new) 页面，产品列表展示、无限下拉，客户列表展示，创建订单，保存草稿。完成了[Drafts](https://linjiande.github.io/shopify-admin/#/orders/drafts_orders) 页面展示、过滤。完成了[Abandoned checkouts](https://linjiande.github.io/shopify-admin/#/orders/checkouts) 页面展示。
 
 > 刘胜文:
 >
