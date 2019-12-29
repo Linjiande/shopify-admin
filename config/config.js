@@ -115,6 +115,10 @@ export default {
           authority: ['admin', 'user'],
           routes: [
             {
+              path: '/',
+              redirect: '/orders/all_list',
+            },
+            { 
               path: '/orders',
               icon: 'table',
               name: 'orders',
@@ -122,7 +126,20 @@ export default {
                 {
                   name: 'all orders',
                   path: '/orders/all_list',
-                  component: './order/all-list',
+                  routes: [
+                    {
+                      name: 'drafts',
+                      hideInMenu: true,
+                      path: '/orders/all_list',
+                      component: './orders/all_list',
+                    },
+                    // {
+                    //   name: 'order-details',
+                    //   path: '/orders/all_list/order_details',
+                    //   hideInMenu: true,
+                    //   component: './orders/all_list/order_details',
+                    // },
+                  ]
                 },
                 {
                   name: 'drafts',
@@ -132,20 +149,20 @@ export default {
                       name: 'drafts',
                       hideInMenu: true,
                       path: '/orders/drafts_orders',
-                      component: './order/drafts',
+                      component: './orders/drafts',
                     },
                     {
                       name: 'new',
                       hideInMenu: true,
                       path: '/orders/drafts_orders/new',
-                      component: './order/drafts/new',
+                      component: './orders/drafts/new',
                     },
                   ],
                 },
                 {
                   name: 'abandoned checkouts',
                   path: '/orders/checkouts',
-                  component: './order/checkouts',
+                  component: './orders/checkouts',
                 },
               ],
             },
@@ -425,7 +442,7 @@ export default {
   },
   // chainWebpack: webpackPlugin,
   history: 'hash',
-  publicPath: './shopify-admin/',
+  publicPath: '/shopify-admin/',
   proxy: {
     '/admin/api/2019-10/': {
       target: 'https://linjd.myshopify.com/',

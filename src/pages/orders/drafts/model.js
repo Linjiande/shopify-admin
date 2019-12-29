@@ -1,5 +1,6 @@
 import {
   getDraft_orders,
+  getCheckouts,
   getProducts,
   getRelProducts,
   getCustomers,
@@ -13,6 +14,7 @@ const Model = {
     header: [],
     customers: [],
     draft_orders: [],
+    checkouts: [],
   },
 
   effects: {
@@ -23,6 +25,15 @@ const Model = {
       yield put({ type: 'save', payload: resDraft_orders.data });
       resDraft_orders.headers.link
         ? yield put({ type: 'header', payload: resDraft_orders.headers.link.split(',') })
+        : {};
+    },
+    // 获取弃单
+    *getCheckouts({ payload }, { call, put }) {
+      yield put({ type: 'initialize' });
+      const resCheckouts = yield call(getCheckouts, payload);
+      yield put({ type: 'save', payload: resCheckouts.data });
+      resCheckouts.headers.link
+        ? yield put({ type: 'header', payload: resCheckouts.headers.link.split(',') })
         : {};
     },
 

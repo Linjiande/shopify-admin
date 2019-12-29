@@ -14,6 +14,18 @@ export async function getDraft_orders(params) {
     console.error(error);
   }
 }
+// 获取弃单列表
+export async function getCheckouts(params) {
+  console.log(params)
+  try {
+    return await axios.get(`${apiBase}/checkouts.json`, {
+      headers: account,
+      params,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
 // 获取产品信息列表
 export async function getProducts(params) {
   try {

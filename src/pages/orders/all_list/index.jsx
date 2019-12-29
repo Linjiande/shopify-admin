@@ -39,7 +39,7 @@ const getValue = obj =>
   orders,
   loading: loading.models.orders,
 }))
-class TableList extends Component {
+class index extends Component {
   state = {
     modalVisible: false,
     updateModalVisible: false,
@@ -446,4 +446,4 @@ class TableList extends Component {
   }
 }
 
-export default Form.create()(TableList);
+export default Form.create()(index);
