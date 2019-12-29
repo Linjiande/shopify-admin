@@ -34,7 +34,6 @@ const getValue = obj =>
     .map(key => obj[key])
     .join(',');
 
-
 /* eslint react/no-multi-comp:0 */
 @connect(({ orders, loading }) => ({
   orders,
@@ -48,15 +47,15 @@ class TableList extends Component {
     selectedRows: [],
     formValues: {},
     stepFormValues: {},
-    currentPage:1,
-    params:{limit:10}
+    currentPage: 1,
+    params: { limit: 10 },
   };
 
   columns = [
     {
       title: 'Order',
       dataIndex: 'order_number',
-      render: (val) => `#${val}`
+      render: val => `#${val}`,
     },
     {
       title: 'Date',
@@ -65,24 +64,25 @@ class TableList extends Component {
       render: val => <span>{moment(val).format('YYYY-MM-DD HH:mm:ss')}</span>,
     },
     {
-      title:'Customer',
-      dataIndex:'customer.first_name',
-      render: (val, record) => val ?  `${val} ${record.customer.last_name}` : 'Unfulfilled',
+      title: 'Customer',
+      dataIndex: 'customer.first_name',
+      render: (val, record) => (val ? `${val} ${record.customer.last_name}` : 'Unfulfilled'),
     },
     {
-      title:'Payment',
-      dataIndex:'financial_status',
-      render:val => <Tag color="orange">{val}</Tag>,
+      title: 'Payment',
+      dataIndex: 'financial_status',
+      render: val => <Tag color="orange">{val}</Tag>,
     },
     {
-      title:'Fulfillment',
-      dataIndex:'fulfillment_status',
-      render: (val) => val ? <Tag color="volcano">{val}</Tag> : <Tag color="gold">{'Unfulfilled'}</Tag>,
+      title: 'Fulfillment',
+      dataIndex: 'fulfillment_status',
+      render: val =>
+        val ? <Tag color="volcano">{val}</Tag> : <Tag color="gold">{'Unfulfilled'}</Tag>,
     },
     {
-      title:'Total',
-      dataIndex:'total_price',
-      render: (val, record) => currencyFormatter.format(val, {code: record.currency}),
+      title: 'Total',
+      dataIndex: 'total_price',
+      render: (val, record) => currencyFormatter.format(val, { code: record.currency }),
     },
   ];
 
@@ -90,15 +90,18 @@ class TableList extends Component {
     const { dispatch } = this.props;
     dispatch({
       type: 'orders/getOrders',
-      payload:{
-        limit:10
-      }
+      payload: {
+        limit: 10,
+      },
     });
   }
 
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
-    const { dispatch, orders: { header }  } = this.props;
-    const { formValues,currentPage } = this.state;
+    const {
+      dispatch,
+      orders: { header },
+    } = this.props;
+    const { formValues, currentPage } = this.state;
     const filters = Object.keys(filtersArg).reduce((obj, key) => {
       const newObj = { ...obj };
       newObj[key] = getValue(filtersArg[key]);
@@ -111,39 +114,42 @@ class TableList extends Component {
     };
     if (sorter.field) {
       let temp = sorter.order;
-      let sort = "";
-      if(temp==="ascend"){
-        sort = temp.substr(0,3);
-      }else if(temp==="descend"){
-        sort = temp.substr(0,4);
+      let sort = '';
+      if (temp === 'ascend') {
+        sort = temp.substr(0, 3);
+      } else if (temp === 'descend') {
+        sort = temp.substr(0, 4);
       }
       params.order = `${sorter.field} ${sort}`;
     }
     this.setState({
-      currentPage:pagination.current,
-      params
-    })
-    if(pagination.current!==1) {
-      const regexp = /<(.+)>[;]\srel="([a-z]+)"/
+      currentPage: pagination.current,
+      params,
+    });
+    if (pagination.current !== 1) {
+      const regexp = /<(.+)>[;]\srel="([a-z]+)"/;
       header.forEach(element => {
         // exec是正则的方法、match是字符串的方法
         const urlrel = regexp.exec(element);
-        const url =  urlrel[1].replace(/.+2019-10/,"");
-        const rel =  urlrel[2];
+        const url = urlrel[1].replace(/.+2019-10/, '');
+        const rel = urlrel[2];
         params.url = url;
-        if((currentPage<pagination.current&&rel==="next")||
-            (currentPage>pagination.current&&rel==="previous")) {
+        if (
+          (currentPage < pagination.current && rel === 'next') ||
+          (currentPage > pagination.current && rel === 'previous')
+        ) {
           dispatch({
-            type:"orders/getRel",
-            payload:params
-          })
+            type: 'orders/getRel',
+            payload: params,
+          });
         }
-      })
-    }else{
+      });
+    } else {
       dispatch({
-      type: 'orders/getOrders',
-      payload: params,
-    });}
+        type: 'orders/getOrders',
+        payload: params,
+      });
+    }
   };
 
   handleFormReset = () => {
@@ -181,7 +187,6 @@ class TableList extends Component {
           },
         });
         break;
-
       default:
         break;
     }
@@ -196,7 +201,7 @@ class TableList extends Component {
   handleSearch = e => {
     e.preventDefault();
     const { dispatch, form } = this.props;
-    const { params  } = this.state
+    const { params } = this.state;
     form.validateFields((err, fieldsValue) => {
       if (err) return;
       const values = {
@@ -205,25 +210,25 @@ class TableList extends Component {
         // updatedAt: fieldsValue.updatedAt && fieldsValue.updatedAt.valueOf(),
       };
       //添加financial_status数组，并转为字符串
-      if(fieldsValue.financial_status!==undefined){
-        values.financial_status = fieldsValue.financial_status+""
-        if(fieldsValue.financial_status.length===0){
-          values.financial_status = undefined
+      if (fieldsValue.financial_status !== undefined) {
+        values.financial_status = fieldsValue.financial_status + '';
+        if (fieldsValue.financial_status.length === 0) {
+          values.financial_status = undefined;
         }
       }
       //添加financial_status数组，并转为字符串
-      if(fieldsValue.fulfillment_status!==undefined){
-        values.fulfillment_status = fieldsValue.fulfillment_status+""
-        if(fieldsValue.fulfillment_status.length===0){
-          values.fulfillment_status = undefined
+      if (fieldsValue.fulfillment_status !== undefined) {
+        values.fulfillment_status = fieldsValue.fulfillment_status + '';
+        if (fieldsValue.fulfillment_status.length === 0) {
+          values.fulfillment_status = undefined;
         }
       }
       // console.log(fieldsValue.created_at_min.format("YYYY-MM-DDThh:mm:ss+8:00"))
       // 添加created_at_min数组，并转为字符串
-      if(fieldsValue.created_at_min!==undefined){
-        values.created_at_min = fieldsValue.created_at_min.format("YYYY-MM-DD")
-        if(fieldsValue.created_at_min.length===0){
-          values.created_at_min = undefined
+      if (fieldsValue.created_at_min !== undefined) {
+        values.created_at_min = fieldsValue.created_at_min.format('YYYY-MM-DD');
+        if (fieldsValue.created_at_min.length === 0) {
+          values.created_at_min = undefined;
         }
       }
       // console.log(values)
@@ -347,29 +352,27 @@ class TableList extends Component {
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-             <FormItem label="created_at">
-               {getFieldDecorator('created_at_min')(
-                 <DatePicker
-                    style={{
-                      width: '100%',
-                    }}
-                placeholder="请输入创建日期"
-              />,
+            <FormItem label="created_at">
+              {getFieldDecorator('created_at_min')(
+                <DatePicker
+                  style={{
+                    width: '100%',
+                  }}
+                  placeholder="请输入创建日期"
+                />,
               )}
-             </FormItem>
+            </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <div style={{textAlign: "center",}}>
+            <div style={{ textAlign: 'center' }}>
               <Button type="primary" icon="search" htmlType="submit">
                 查询
               </Button>
-              <Button style={{marginLeft: 16,}} onClick={this.handleFormReset}>
+              <Button style={{ marginLeft: 16 }} onClick={this.handleFormReset}>
                 重置
               </Button>
-              <Button type="primary" style={{marginLeft: 32,}}>
-                <NavLink to="/orders/drafts_orders/new">
-                  新建订单
-                </NavLink>
+              <Button type="primary" style={{ marginLeft: 32 }}>
+                <NavLink to="/orders/drafts_orders/new">创建订单</NavLink>
               </Button>
             </div>
           </Col>
@@ -377,19 +380,22 @@ class TableList extends Component {
       </Form>
     );
   }
-  
+
   render() {
     const {
-      orders: { list,count },
+      orders: { list, count },
       loading,
     } = this.props;
-    // console.log("orders",this.props.orders)
-    // console.log("loading",loading)
-    const { selectedRows, modalVisible, updateModalVisible, stepFormValues, currentPage } = this.state;
+    const {
+      selectedRows,
+      modalVisible,
+      updateModalVisible,
+      stepFormValues,
+      currentPage,
+    } = this.state;
     const menu = (
       <Menu onClick={this.handleMenuClick} selectedKeys={[]}>
         <Menu.Item key="remove">删除</Menu.Item>
-        <Menu.Item key="approval">批量审批</Menu.Item>
       </Menu>
     );
     const parentMethods = {
@@ -408,7 +414,6 @@ class TableList extends Component {
             <div className={styles.tableListOperator}>
               {selectedRows.length > 0 && (
                 <span>
-                  <Button>批量操作</Button>
                   <Dropdown overlay={menu}>
                     <Button>
                       更多操作 <Icon type="down" />
@@ -420,11 +425,11 @@ class TableList extends Component {
             <StandardTable
               selectedRows={selectedRows}
               loading={loading}
-              data={{list}}
+              data={{ list }}
               columns={this.columns}
               onSelectRow={this.handleSelectRows}
               onChange={this.handleStandardTableChange}
-              pagination={{simple: true, total: count,current: currentPage}}
+              pagination={{ simple: true, total: count, current: currentPage }}
             />
           </div>
         </Card>

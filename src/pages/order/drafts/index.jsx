@@ -1,27 +1,24 @@
-import {
-    Card,
-    Button
-} from 'antd'
+import { Card } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import NavLink from 'umi/navlink';
+import Table from './Table';
+import Button from './Button';
 
 @connect(({ drafts }) => ({
-    drafts
-  }))
+  drafts,
+}))
 class index extends Component {
-    
-    render() {
-        return (
-            <PageHeaderWrapper>
-                <Card>
-                    <div>drafts</div>
-                    <Button type="primary"><NavLink to="/orders/drafts_orders/new">新建订单</NavLink></Button>
-                </Card>
-            </PageHeaderWrapper>
-        );
-    }
+  render() {
+    return (
+      <PageHeaderWrapper>
+        <Card>
+          <Button />
+          <Table />
+        </Card>
+      </PageHeaderWrapper>
+    );
+  }
 }
 
 export default index;

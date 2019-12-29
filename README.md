@@ -3,9 +3,11 @@
 ## 原型、示例
 
 ### 原型
-[Shopify-admin](https://7o0dfh.axshare.com)
-密码：abc123456
+
+[Shopify-admin](https://7o0dfh.axshare.com) 密码：abc123456
+
 ### 示例
+
 [Shopify-admin](https://linjiande.github.io/shopify-admin/)
 
 ## 关于
@@ -14,91 +16,124 @@
 
 ### 项目成员和职责
 
-* 林建德
-    > 组长
-    > 项目统筹、开发
-* 刘胜文
-    >组员
-    >测试
-* 范志禹
-    >组员
-    >测试
-* 江珂
-    >组员
-    >项目原型制作
-* 刘志凡
-    >组员
-    >项目原型制作
-* 刘正南
-    >组员
-    >协助组员工作
+- 林建德
+  > 组长项目统筹、开发
+- 刘胜文
+  > 组员测试
+- 范志禹
+  > 组员测试
+- 江珂
+  > 组员项目原型制作
+- 刘志凡
+  > 组员项目原型制作
+- 刘正南
+  > 组员协助组员工作
 
 ## 项目进度
 
 ### 完成总览
 
- - [ ] Orders
-    - [x] All orders
-    - [ ] Order details
-    - [ ] Drafts
-    - [ ] Drafts_orders details
-    - [ ] Create Drafts_orders
-    - [ ] Abandoned checkouts
- - [ ] Products
-    - [ ] All products
-    - [ ] Transfers
-    - [ ] Inventory
- - [ ] Customers
-    - [ ] All customers
-    - [ ] new
+- [ ] Orders
+  - [x] All orders
+  - [ ] Order details
+  - [x] Drafts
+  - [ ] Drafts_orders details
+  - [x] Create Drafts_orders
+  - [x] Abandoned checkouts
+- [ ] Products
+  - [ ] All products
+  - [ ] Transfers
+  - [ ] Inventory
+- [ ] Customers
+  - [ ] All customers
+  - [ ] new
 
 ### 每周进度
 
 #### 第一周
 
-> 林建德:  
->   > 立项，分配任务，并把项目代码Shopify-admin托管至GitHub。
->   > 完成了[All orders](https://linjiande.github.io/shopify-admin/#/orders/all_list)
->   > 页面的数据获取和展示以及部分的数据过滤功能。  
+> 林建德:
+>
+> > 立项，分配任务，并把项目代码 Shopify-admin 托管至 GitHub。
+> > 完成了[All orders](https://linjiande.github.io/shopify-admin/#/orders/all_list) 
+> > 页面的数据获取和展示以及部分的数据过滤功能。
 
-> 刘胜文:  
->   > 测试已实现的功能
+> 刘胜文:
+>
+> > 测试已实现的功能
 
->范志禹:  
->   > 添加测试数据
+> 范志禹:
+>
+> > 添加测试数据
 
->江珂:  
->   > 完成了orders部分原型的制作
+> 江珂:
+>
+> > 完成了 orders 部分原型的制作
 
->刘志凡:  
->   > 完成了products部分原型的制作  
+> 刘志凡:
+>
+> > 完成了 products 部分原型的制作
 
->刘正南:  
->   > 协助测试功能、添加测试数据
+> 刘正南:
+>
+> > 协助测试功能、添加测试数据
 
 #### 第二周
 
-> 林建德:  
->   > 完成了[All orders](https://linjiande.github.io/shopify-admin/#/orders/all_list)
->   > 页面的所有数据过滤功能；实现了排序和分页,优化代码结构。
->   > 开始准备进行Create Drafts_orders的开发
+> 林建德:
+>
+> > 完成了[All orders](https://linjiande.github.io/shopify-admin/#/orders/all_list)
+> > 页面的所有数据过滤功能；实现了排序和分页,优化代码结构。开始准备进行 Create Drafts_orders 的开发
 
-> 刘胜文:  
->   > 测试已实现的功能
+> 刘胜文:
+>
+> > 测试已实现的功能
 
->范志禹:  
->   > 添加测试数据
+> 范志禹:
+>
+> > 添加测试数据
 
->江珂:  
->   > 基本完成了orders原型的制作
+> 江珂:
+>
+> > 基本完成了 orders 原型的制作
 
->刘志凡:  
->   > 基本完成了products原型的制作  
+> 刘志凡:
+>
+> > 基本完成了 products 原型的制作
 
->刘正南:  
->   > 参与原型的制作
+> 刘正南:
+>
+> > 参与原型的制作
 
-***
+#### 第三周
+
+> 林建德:
+>
+> > 完成了[Create Drafts_orders](https://linjiande.github.io/shopify-admin/#/orders/drafts_orders/new) 页面产品搜索、无限下拉，客户搜索，创建订单，保存到草稿。
+> > 完成了[Drafts](https://linjiande.github.io/shopify-admin/#/orders/drafts_orders) 页面展示、过滤。
+<!-- > > 完成了[Abandoned checkouts](https://linjiande.github.io/shopify-admin/#/orders/checkouts) 页面展示。 -->
+
+> 刘胜文:
+>
+> > 测试已实现的功能，添加测试数据
+
+> 范志禹:
+>
+> > 完成测试文档
+
+> 江珂:
+>
+> > 完成了 orders 原型的制作
+
+> 刘志凡:
+>
+> > 完成了 products 原型的制作
+
+> 刘正南:
+>
+> > 完成了 customers 原型的制作
+
+---
 
 # Ant Design Pro
 

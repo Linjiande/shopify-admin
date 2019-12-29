@@ -117,49 +117,48 @@ export default {
             {
               path: '/orders',
               icon: 'table',
-              name: 'Orders',
+              name: 'orders',
               routes: [
                 {
-                  name: 'All Orders',
+                  name: 'all orders',
                   path: '/orders/all_list',
                   component: './order/all-list',
                 },
                 {
-                  name: 'Drafts',
+                  name: 'drafts',
                   path: '/orders/drafts_orders',
-                  routes:[
-                    { 
-                      name: 'Drafts',
+                  routes: [
+                    {
+                      name: 'drafts',
                       hideInMenu: true,
                       path: '/orders/drafts_orders',
-                      component:'./order/drafts',
+                      component: './order/drafts',
                     },
-                    { 
-                      name: 'New',
+                    {
+                      name: 'new',
                       hideInMenu: true,
                       path: '/orders/drafts_orders/new',
-                      component:'./order/drafts/new',
+                      component: './order/drafts/new',
                     },
-                  ]
+                  ],
                 },
                 {
-                  name: 'Abandoned checkouts',
-                  path: '/orders/basic-list',
-                  component: './order/basic-list'
+                  name: 'abandoned checkouts',
+                  path: '/orders/checkouts',
+                  component: './order/checkouts',
                 },
               ],
             },
             {
               path: '/products',
-              name: 'Products',
+              name: 'products',
               icon: 'dashboard',
             },
             {
               path: '/customers',
-              name: 'Customers',
+              name: 'customers',
               icon: 'dashboard',
-            },
-            // {
+            }, // {
             //   path: '/dashboard',
             //   name: 'dashboard',
             //   icon: 'dashboard',
@@ -423,13 +422,15 @@ export default {
   },
   manifest: {
     basePath: '/',
-  }, // chainWebpack: webpackPlugin,
+  },
+  // chainWebpack: webpackPlugin,
   history: 'hash',
-  publicPath: '/shopify-admin/',
+  publicPath: './shopify-admin/',
   proxy: {
     '/admin/api/2019-10/': {
       target: 'https://linjd.myshopify.com/',
       changeOrigin: true,
-    }
+    },
   },
 };
+
