@@ -54,9 +54,7 @@
 
 > 林建德:
 >
-> > 立项，分配任务，并把项目代码 Shopify-admin 托管至 GitHub。
-> > 完成了[All orders](https://linjiande.github.io/shopify-admin/#/orders/all_list) 
-> > 页面的数据获取和展示以及部分的数据过滤功能。
+> > 立项，分配任务，并把项目代码 Shopify-admin 托管至 GitHub。完成了[All orders](https://linjiande.github.io/shopify-admin/#/orders/all_list) 页面的数据获取和展示以及部分的数据过滤功能。
 
 > 刘胜文:
 >
@@ -82,8 +80,7 @@
 
 > 林建德:
 >
-> > 完成了[All orders](https://linjiande.github.io/shopify-admin/#/orders/all_list)
-> > 页面的所有数据过滤功能；实现了排序和分页,优化代码结构。开始准备进行 Create Drafts_orders 的开发
+> > 完成了[All orders](https://linjiande.github.io/shopify-admin/#/orders/all_list) 页面的所有数据过滤功能；实现了排序和分页,优化代码结构。开始准备进行 Create Drafts_orders 的开发
 
 > 刘胜文:
 >
@@ -109,9 +106,7 @@
 
 > 林建德:
 >
-> > 完成了[Create Drafts_orders](https://linjiande.github.io/shopify-admin/#/orders/drafts_orders/new) 页面产品搜索、无限下拉，客户搜索，创建订单，保存到草稿。
-> > 完成了[Drafts](https://linjiande.github.io/shopify-admin/#/orders/drafts_orders) 页面展示、过滤。
-> > 完成了[Abandoned checkouts](https://linjiande.github.io/shopify-admin/#/orders/checkouts) 页面展示。
+> > 基本完成了[Create Drafts_orders](https://linjiande.github.io/shopify-admin/#/orders/drafts_orders/new) 页面,产品列表展示、无限下拉，客户列表展示，创建订单，保存草稿。完成了[Drafts](https://linjiande.github.io/shopify-admin/#/orders/drafts_orders) 页面展示、过滤。完成了[Abandoned checkouts](https://linjiande.github.io/shopify-admin/#/orders/checkouts) 页面展示。
 
 > 刘胜文:
 >
