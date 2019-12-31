@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Table } from 'antd';
-import Link from 'umi/link';
 import router from 'umi/router';
 import styles from './index.less';
 
 @connect(({ drafts }) => ({
   drafts,
 }))
-export default class table extends Component {
+export default class index extends Component {
   columns = [
     {
       title: 'Draft',
@@ -51,6 +50,7 @@ export default class table extends Component {
     },
   ];
   componentDidMount = () => {
+    console.log(this.props)
     const { dispatch } = this.props;
     dispatch({
       type: 'drafts/getDraft_orders',

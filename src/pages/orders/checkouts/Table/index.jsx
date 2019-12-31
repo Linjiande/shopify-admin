@@ -6,7 +6,7 @@ import styles from './index.less';
 @connect(({ checkouts }) => ({
   checkouts,
 }))
-export default class table extends Component {
+export default class index extends Component {
   columns = [
     {
       title: 'Checkout',
@@ -52,13 +52,11 @@ export default class table extends Component {
   ];
   componentDidMount = () => {
     const { dispatch } = this.props;
-    console.log(this.props)
     dispatch({
       type: 'checkouts/getCheckouts',
     });
   };
   getCheckouts = (pagination, filters) => {
-    console.log(filters);
     const { dispatch } = this.props;
     filters.name.length === 0
       ? dispatch({

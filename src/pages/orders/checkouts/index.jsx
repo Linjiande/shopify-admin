@@ -5,7 +5,6 @@ import Table from './Table';
 
 class index extends Component {
   render() {
-    console.log(this.props)
     return (
       <PageHeaderWrapper>
         <Card>
