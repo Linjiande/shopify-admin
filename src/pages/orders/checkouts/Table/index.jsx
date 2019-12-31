@@ -3,8 +3,8 @@ import { connect } from 'dva';
 import { Table } from 'antd';
 import styles from './index.less';
 
-@connect(({ drafts }) => ({
-  drafts,
+@connect(({ checkouts }) => ({
+  checkouts,
 }))
 export default class table extends Component {
   columns = [
@@ -38,11 +38,11 @@ export default class table extends Component {
       dataIndex: 'status',
       render: (val, record) => (val ? `${val} ${record.customer.last_name}` : 'Unfulfilled'),
     },
-    {
-      title: 'Recovery Status',
-      dataIndex: 'status',
-      render: (val, record) => (val ? `${val} ${record.customer.last_name}` : 'Unfulfilled'),
-    },
+    // {
+    //   title: 'Recovery Status',
+    //   dataIndex: 'status',
+    //   render: (val, record) => (val ? `${val} ${record.customer.last_name}` : 'Unfulfilled'),
+    // },
     {
       title: 'Total',
       dataIndex: 'total_price',
@@ -52,8 +52,9 @@ export default class table extends Component {
   ];
   componentDidMount = () => {
     const { dispatch } = this.props;
+    console.log(this.props)
     dispatch({
-      type: 'drafts/getCheckouts'
+      type: 'checkouts/getCheckouts',
     });
   };
   getCheckouts = (pagination, filters) => {
@@ -61,10 +62,10 @@ export default class table extends Component {
     const { dispatch } = this.props;
     filters.name.length === 0
       ? dispatch({
-          type: 'drafts/getCheckouts',
+          type: 'checkouts/getCheckouts',
         })
       : dispatch({
-          type: 'drafts/getCheckouts',
+          type: 'checkouts/getCheckouts',
           payload: {
             status: filters.name + '',
           },
@@ -73,7 +74,7 @@ export default class table extends Component {
 
   render() {
     const {
-      drafts: { checkouts },
+      checkouts: { checkouts },
     } = this.props;
     return (
       <div className={styles.container}>

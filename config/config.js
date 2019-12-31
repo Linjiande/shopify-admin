@@ -157,6 +157,12 @@ export default {
                       path: '/orders/drafts_orders/new',
                       component: './orders/drafts/new',
                     },
+                    {
+                      name: 'details',
+                      hideInMenu: true,
+                      path: '/orders/drafts_orders/:id',
+                      component: './orders/drafts/details',
+                    },
                   ],
                 },
                 {

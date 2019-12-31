@@ -9,6 +9,7 @@ export default {
   'menu.orders': '订单',
   'menu.orders.all orders': '所有订单',
   'menu.orders.drafts': '草稿',
+  'menu.orders.drafts.details': '草稿详情',
   'menu.orders.drafts.new': '创建订单',
   'menu.orders.abandoned checkouts': '弃单',
   'menu.products': '产品',

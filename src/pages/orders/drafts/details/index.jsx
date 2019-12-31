@@ -47,6 +47,16 @@ class index extends Component {
     customer: {},
   };
 
+  componentDidMount() {
+    const {
+      drafts: { draft_order },
+    } = this.props;
+    console.log('componentDidMount', draft_order.line_items);
+    // this.setState({
+
+    // })
+  }
+
   // product和notes,改变输入框
   handleChange = e => {
     const { value } = this.state;
@@ -483,7 +493,7 @@ class index extends Component {
     const { Search, TextArea } = Input;
     const { Option } = Select;
     const {
-      drafts: { products, customers },
+      drafts: { products, customers, draft_order },
     } = this.props;
     const {
       visible,
@@ -497,7 +507,8 @@ class index extends Component {
       customer,
       regexp,
     } = this.state;
-    console.log(visible);
+    // this.props.drafts.draft_order.line_items
+    console.log(draft_order.line_items);
     return (
       <PageHeaderWrapper
         title={

@@ -9,6 +9,7 @@ export default {
   'menu.orders': 'Orders',
   'menu.orders.all orders': 'All Orders',
   'menu.orders.drafts': 'Drafts',
+  'menu.orders.drafts.details': 'Drafts details',
   'menu.orders.drafts.new': 'New Orders',
   'menu.orders.abandoned checkouts': 'Abandoned Checkouts',
   'menu.products': 'Products',

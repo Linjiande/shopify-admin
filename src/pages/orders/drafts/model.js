@@ -1,9 +1,10 @@
 import {
   getDraft_orders,
-  getCheckouts,
+  getDraft_details,
   getProducts,
   getRelProducts,
   getCustomers,
+  searchCustomers,
   createOrder,
   createDraft_orders,
 } from './service';
@@ -15,6 +16,7 @@ const Model = {
     customers: [],
     draft_orders: [],
     checkouts: [],
+    draft_order:{}
   },
 
   effects: {
@@ -27,16 +29,11 @@ const Model = {
         ? yield put({ type: 'header', payload: resDraft_orders.headers.link.split(',') })
         : {};
     },
-    // 获取弃单
-    *getCheckouts({ payload }, { call, put }) {
-      yield put({ type: 'initialize' });
-      const resCheckouts = yield call(getCheckouts, payload);
-      yield put({ type: 'save', payload: resCheckouts.data });
-      resCheckouts.headers.link
-        ? yield put({ type: 'header', payload: resCheckouts.headers.link.split(',') })
-        : {};
+    // 获取草稿详情
+    *getDraft_details({ payload }, { call, put }) {
+      const resDraft_order = yield call(getDraft_details, payload);
+      yield put({ type: 'save', payload: resDraft_order.data });
     },
-
     // 获取产品、分页
     *getProducts({ payload }, { call, put }) {
       const resProducts = yield call(getProducts, payload);
@@ -65,16 +62,23 @@ const Model = {
         ? yield put({ type: 'header', payload: resCustomers.headers.link.split(',') })
         : {};
     },
+    // 搜索客户
+    *searchCustomers({ payload }, { call, put }) {
+      yield put({ type: 'initializeCustomers' });
+      const resCustomers = yield call(searchCustomers, payload);
+      yield put({ type: 'save', payload: resCustomers.data });
+      resCustomers.headers.link
+        ? yield put({ type: 'header', payload: resCustomers.headers.link.split(',') })
+        : {};
+    },
 
     // 创建订单
     *createOrder({ payload }, { call, put }) {
-      console.log('createOrder', payload);
       yield call(createOrder, payload);
     },
 
     // 创建订单草稿
     *createDraft_orders({ payload }, { call, put }) {
-      console.log('createDraft_orders', payload);
       yield call(createDraft_orders, payload);
     },
   },
@@ -87,6 +91,9 @@ const Model = {
     },
     initialize(state) {
       return { ...state, products: [], header: [], draft_orders: [] };
+    },
+    initializeCustomers(state) {
+      return { ...state, customers: [], header: [] };
     },
   },
 };

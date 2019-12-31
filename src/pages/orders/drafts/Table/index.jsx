@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Table } from 'antd';
+import Link from 'umi/link';
+import router from 'umi/router';
 import styles from './index.less';
 
 @connect(({ drafts }) => ({
@@ -51,11 +53,10 @@ export default class table extends Component {
   componentDidMount = () => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'drafts/getDraft_orders'
+      type: 'drafts/getDraft_orders',
     });
   };
   getDraft_orders = (pagination, filters) => {
-    console.log(filters);
     const { dispatch } = this.props;
     filters.name.length === 0
       ? dispatch({
@@ -68,7 +69,29 @@ export default class table extends Component {
           },
         });
   };
-
+  onRow = record => {
+    const {
+      dispatch,
+      drafts: { draft_order },
+    } = this.props;
+    return {
+      onClick: () => {
+        console.log(record);
+        dispatch({
+          type: 'drafts/getDraft_details',
+          payload: record.id,
+        });
+        this.intervalID = setInterval(() => {
+          if (draft_order.length !== 0) {
+            router.push(`/orders/drafts_orders/${record.id}`);
+          }
+        }, 500);
+      },
+    };
+  };
+  componentWillUnmount = () => {
+    clearInterval(this.intervalID)
+  }
   render() {
     const {
       drafts: { draft_orders },
@@ -81,6 +104,7 @@ export default class table extends Component {
             columns={this.columns}
             dataSource={draft_orders}
             onChange={this.getDraft_orders}
+            onRow={this.onRow}
           />
         </div>
       </div>

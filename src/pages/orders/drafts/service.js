@@ -4,7 +4,6 @@ const apiBase = 'https://mirror.viralbox.org/linjd/admin/api/2019-10';
 const account = { 'X-Shopify-Access-Token': 'f0685932b93ca0d6882374f86968a334' };
 // 获取草稿订单列表
 export async function getDraft_orders(params) {
-  console.log(params)
   try {
     return await axios.get(`${apiBase}/draft_orders.json`, {
       headers: account,
@@ -14,13 +13,12 @@ export async function getDraft_orders(params) {
     console.error(error);
   }
 }
-// 获取弃单列表
-export async function getCheckouts(params) {
+// 获取草稿详情
+export async function getDraft_details(params) {
   console.log(params)
   try {
-    return await axios.get(`${apiBase}/checkouts.json`, {
-      headers: account,
-      params,
+    return await axios.get(`${apiBase}/draft_orders/${params}.json`, {
+      headers: account
     });
   } catch (error) {
     console.error(error);
@@ -51,6 +49,18 @@ export async function getRelProducts(url) {
 export async function getCustomers(params) {
   try {
     return await axios.get(`${apiBase}/customers.json`, {
+      headers: account,
+      params,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+// 搜索客户信息列表
+export async function searchCustomers(params) {
+  console.log('params',params)
+  try {
+    return await axios.get(`${apiBase}/customers/search.json`, {
       headers: account,
       params,
     });
