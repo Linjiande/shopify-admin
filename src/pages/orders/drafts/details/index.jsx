@@ -49,12 +49,28 @@ class index extends Component {
 
   componentDidMount() {
     const {
-      drafts: { draft_order },
+      drafts: {
+        draft_order_drafts: { line_items },
+        draft_order_drafts,
+      },
     } = this.props;
-    console.log('componentDidMount', draft_order.line_items);
-    // this.setState({
-
-    // })
+    // console.log(draft_order_drafts);
+    const temp = [];
+    line_items.forEach(item => {
+      temp.push(
+        JSON.stringify({
+          variant_id: item.variant_id,
+          // image: item.image,
+          productTitle: item.title,
+          variantTitle: item.variant_title,
+          price: item.price,
+          sku: item.sku,
+        }),
+      );
+    });
+    this.setState({
+      checkedbox: temp,
+    });
   }
 
   // product和notes,改变输入框
@@ -167,6 +183,7 @@ class index extends Component {
     dispatch({
       type: 'drafts/initialize',
     });
+    // 删除checkedbox（选中的checkbox和旧checkedbox重复的部分）
     checkbox.forEach(item => {
       item = JSON.parse(item);
       for (let i = 0; i < checkedbox.length; i++) {
@@ -450,6 +467,17 @@ class index extends Component {
           payload: order2,
         });
   };
+  // 删除订单草稿
+  deletesDraft_orders = () => {
+    const {
+      dispatch,
+      drafts: { draft_order_drafts },
+    } = this.props;
+    dispatch({
+      type: 'drafts/deletesDraft_orders',
+      payload: draft_order_drafts.id,
+    });
+  };
   // 创建订单草稿
   createDraft_orders = () => {
     const { dispatch } = this.props;
@@ -507,8 +535,6 @@ class index extends Component {
       customer,
       regexp,
     } = this.state;
-    // this.props.drafts.draft_order.line_items
-    console.log(draft_order.line_items);
     return (
       <PageHeaderWrapper
         title={
@@ -826,7 +852,15 @@ class index extends Component {
           }}
         />
         <Row gutter={[16, 24]}>
-          <Col lg={{ offset: 18, span: 3, push: 3 }}>
+          <Col lg={{ span: 3, push: 1 }}>
+            <Button
+              type="danger"
+              onClick={this.deletesDraft_orders}
+            >
+              <NavLink to="/orders/drafts_orders">Delete draft order</NavLink>
+            </Button>
+          </Col>
+          <Col lg={{ offset: 14, span: 3, push: 3 }}>
             <Button
               disabled={!Boolean(checkedbox.length)}
               type="primary"

@@ -1,6 +1,8 @@
 import {
   getDraft_orders,
+  deletesDraft_orders,
   getDraft_details,
+  getProducts_images,
   getProducts,
   getRelProducts,
   getCustomers,
@@ -16,7 +18,11 @@ const Model = {
     customers: [],
     draft_orders: [],
     checkouts: [],
-    draft_order:{}
+    draft_order_drafts: {
+      id:'',
+      line_items:[],
+      imags:[],
+    },
   },
 
   effects: {
@@ -32,7 +38,24 @@ const Model = {
     // 获取草稿详情
     *getDraft_details({ payload }, { call, put }) {
       const resDraft_order = yield call(getDraft_details, payload);
-      yield put({ type: 'save', payload: resDraft_order.data });
+      // console.log(resDraft_order.data.draft_order.line_items);
+      // (resDraft_order.data.draft_order.line_items).forEach(item => {
+      //   const imags = yield call(getProducts_images, item.product_id);
+      //   console.log(imags)
+      // })
+      yield put({
+        type: 'save',
+        payload: {
+          draft_order_drafts: {
+            id: resDraft_order.data.draft_order.id,
+            line_items: resDraft_order.data.draft_order.line_items,
+          },
+        },
+      });
+    },
+    // 获取产品、分页
+    *deletesDraft_orders({ payload }, { call, put }) {
+      yield call(deletesDraft_orders, payload);
     },
     // 获取产品、分页
     *getProducts({ payload }, { call, put }) {

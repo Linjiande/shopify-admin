@@ -13,12 +13,31 @@ export async function getDraft_orders(params) {
     console.error(error);
   }
 }
+// 根据草稿订单ID删除草稿订单
+export async function deletesDraft_orders(params) {
+  try {
+    return await axios.delete(`${apiBase}/draft_orders/${params}.json`, {
+      headers: account,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
 // 获取草稿详情
 export async function getDraft_details(params) {
-  console.log(params)
   try {
     return await axios.get(`${apiBase}/draft_orders/${params}.json`, {
-      headers: account
+      headers: account,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+// 获取草稿详情对应的商品图片
+export async function getProducts_images(params) {
+  try {
+    return await axios.get(`${apiBase}/products/${params}/images.json`, {
+      headers: account,
     });
   } catch (error) {
     console.error(error);
@@ -58,7 +77,7 @@ export async function getCustomers(params) {
 }
 // 搜索客户信息列表
 export async function searchCustomers(params) {
-  console.log('params',params)
+  console.log('params', params);
   try {
     return await axios.get(`${apiBase}/customers/search.json`, {
       headers: account,

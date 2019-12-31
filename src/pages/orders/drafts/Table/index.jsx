@@ -8,6 +8,9 @@ import styles from './index.less';
   drafts,
 }))
 export default class index extends Component {
+  state = {
+    loading: false,
+  };
   columns = [
     {
       title: 'Draft',
@@ -16,10 +19,6 @@ export default class index extends Component {
         {
           text: 'open',
           value: 'open',
-        },
-        {
-          text: 'invoice_sent',
-          value: 'invoice_sent',
         },
         {
           text: 'completed',
@@ -50,7 +49,6 @@ export default class index extends Component {
     },
   ];
   componentDidMount = () => {
-    console.log(this.props)
     const { dispatch } = this.props;
     dispatch({
       type: 'drafts/getDraft_orders',
@@ -58,7 +56,11 @@ export default class index extends Component {
   };
   getDraft_orders = (pagination, filters) => {
     const { dispatch } = this.props;
-    filters.name.length === 0
+    const filter = {
+      name: [],
+      ...filters,
+    };
+    filter.name.length === 0
       ? dispatch({
           type: 'drafts/getDraft_orders',
         })
@@ -72,26 +74,25 @@ export default class index extends Component {
   onRow = record => {
     const {
       dispatch,
-      drafts: { draft_order },
+      drafts: { line_items },
     } = this.props;
     return {
       onClick: () => {
-        console.log(record);
         dispatch({
           type: 'drafts/getDraft_details',
           payload: record.id,
         });
         this.intervalID = setInterval(() => {
-          if (draft_order.length !== 0) {
-            router.push(`/orders/drafts_orders/${record.id}`);
-          }
-        }, 500);
+          this.props.drafts.draft_order_drafts.line_items.length !== 0
+            ? router.push(`/orders/drafts_orders/${record.id}`)
+            : console.log('line_items', line_items);
+        }, 1000);
       },
     };
   };
   componentWillUnmount = () => {
-    clearInterval(this.intervalID)
-  }
+    clearInterval(this.intervalID);
+  };
   render() {
     const {
       drafts: { draft_orders },
