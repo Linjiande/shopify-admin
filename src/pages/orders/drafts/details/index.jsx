@@ -50,17 +50,17 @@ class index extends Component {
   componentDidMount() {
     const {
       drafts: {
-        draft_order_drafts: { line_items },
+        draft_order_drafts: { line_items,imags },
         draft_order_drafts,
       },
     } = this.props;
     // console.log(draft_order_drafts);
     const temp = [];
-    line_items.forEach(item => {
+    line_items.forEach((item,index) => {
       temp.push(
         JSON.stringify({
           variant_id: item.variant_id,
-          // image: item.image,
+          image: imags[index],
           productTitle: item.title,
           variantTitle: item.variant_title,
           price: item.price,
