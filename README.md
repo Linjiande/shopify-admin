@@ -37,7 +37,7 @@
   - [x] All orders
   - [ ] Order details
   - [x] Drafts
-  - [ ] Drafts_orders details
+  - [x] Drafts_orders details
   - [x] Create Drafts_orders
   - [x] Abandoned checkouts
 - [ ] Products
@@ -107,6 +107,32 @@
 > 林建德:
 >
 > > 基本完成了[Create Drafts_orders](https://linjiande.github.io/shopify-admin/#/orders/drafts_orders/new) 页面，产品列表展示、无限下拉，客户列表展示，创建订单，保存草稿。完成了[Drafts](https://linjiande.github.io/shopify-admin/#/orders/drafts_orders) 页面展示、过滤。完成了[Abandoned checkouts](https://linjiande.github.io/shopify-admin/#/orders/checkouts) 页面展示。
+
+> 刘胜文:
+>
+> > 完善测试文档
+
+> 范志禹:
+>
+> > 完善测试文档
+
+> 江珂:
+>
+> > 完善了 orders 原型的制作
+
+> 刘志凡:
+>
+> > 完善了 products 原型的制作
+
+> 刘正南:
+>
+> > 完善了 customers 原型的制作
+
+#### 第四周
+
+> 林建德:
+>
+> > 完成了[Drafts_orders details](https://linjiande.github.io/shopify-admin/#/orders/drafts_orders) 页面
 
 > 刘胜文:
 >
