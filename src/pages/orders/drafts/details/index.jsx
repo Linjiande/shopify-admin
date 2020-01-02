@@ -54,10 +54,13 @@ class index extends Component {
         draft_order_drafts,
       },
     } = this.props;
-    // console.log(draft_order_drafts);
-    const temp = [];
+
+   
+
+    const tempCheckedbox = [];
+    const tempLine_items = [];
     line_items.forEach((item,index) => {
-      temp.push(
+      tempCheckedbox.push(
         JSON.stringify({
           variant_id: item.variant_id,
           image: imags[index],
@@ -67,9 +70,17 @@ class index extends Component {
           sku: item.sku,
         }),
       );
+      tempLine_items.push(
+        JSON.stringify({
+          variant_id:item.variant_id,
+          quantity: item.quantity,
+          prices: Number(item.price)*item.quantity,
+        }),
+      );
     });
     this.setState({
-      checkedbox: temp,
+      checkedbox: tempCheckedbox,
+      line_items:tempLine_items
     });
   }
 
